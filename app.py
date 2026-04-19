@@ -527,9 +527,9 @@ def login_view():
     st.markdown("""
         <div class="command-header">
             <div class="brand">
-                <div class="brand-title">HOSPITAL OS // COMMAND</div>
+                <div class="brand-title">CyberGra Decyzyjna - Atak na Szpital // COMMAND</div>
             </div>
-            <div class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--accent-yellow); border-color: rgba(245, 158, 11, 0.3);">WAITING FOR AUTH</div>
+            <div class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--accent-yellow); border-color: rgba(245, 158, 11, 0.3);">Czekam na autoryzację</div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -563,7 +563,7 @@ def admin_view():
     st.markdown("""
         <div class="command-header">
             <div class="brand">
-                <div class="brand-title">CYBERGRA DECYZYJNA // COMMAND // ROOT</div>
+                <div class="brand-title">CyberGra Decyzyjna - Atak na Szpital // COMMAND // ROOT</div>
             </div>
             <div style="display: flex; gap: 1rem; align-items: center;">
                 <div class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--accent-green); border-color: rgba(34, 197, 94, 0.3);">SYSTEM READY</div>
@@ -576,7 +576,7 @@ def admin_view():
     
     with col1:
         st.markdown("<div class='panel'>", unsafe_allow_html=True)
-        st.markdown("<div class='panel-label'>KONTROLA FAZ</div>", unsafe_allow_html=True)
+        st.markdown("<div class='panel-label'>KONTROLA FAZ GRY</div>", unsafe_allow_html=True)
         
         if state["round"] == 0:
             scenario_choice = st.selectbox("Wybierz scenariusz:", list(SCENARIOS.keys()))
@@ -649,7 +649,7 @@ def team_view():
     st.markdown(f"""
         <div class="command-header">
             <div class="brand">
-                <div class="brand-title">HOSPITAL OS // COMMAND</div>
+                <div class="brand-title">CyberGra Decyzyjna - Atak na Szpital // COMMAND</div>
                 <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); margin-left: 20px;">
                     SESSION_ID: <span style="color: var(--accent-cyan)">{team_name.upper()}</span>
                 </div>
