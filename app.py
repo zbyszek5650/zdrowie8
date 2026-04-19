@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import datetime
 import time
+import base64
+import os
 
 # --- CONFIGURATION ---
 st.set_page_config(
@@ -11,12 +13,23 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# --- HELPER FUNKCJA DO ZDJĘCIA LOKALNEGO W HTML ---
+def get_image_as_base64(file_path):
+    if not os.path.exists(file_path):
+        return ""
+    with open(file_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# Pobierz base64 logotypu, aby użyć go w CSS (jeśli plik logo.png nie istnieje, zignoruje to bez błędu)
+logo_b64 = get_image_as_base64("logo.png")
+
 # --- PROFESSIONAL POLISH CSS ---
-st.markdown("""
+st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
-    :root {
+    :root {{
         --bg-color: #0f172a;
         --panel-bg: #1e293b;
         --border-color: #334155;
@@ -28,19 +41,21 @@ st.markdown("""
         --accent-yellow: #f59e0b;
         --font-sans: 'Inter', sans-serif;
         --font-mono: 'JetBrains Mono', monospace;
-    }
+    }}
 
     /* Global Overrides */
-    .stApp {
+    .stApp {{
         background-color: var(--bg-color) !important;
         color: var(--text-primary);
         font-family: var(--font-sans);
-    }
+        /* Dodajemy margines na dole, aby treść nie chowała się pod stopką z logo */
+        padding-bottom: 80px; 
+    }}
 
-    #MainMenu, footer, header { visibility: hidden; }
+    #MainMenu, footer, header {{ visibility: hidden; }}
 
     /* Layout Containers */
-    .command-header {
+    .command-header {{
         height: 64px;
         background: rgba(15, 23, 42, 0.8);
         border-bottom: 1px solid var(--border-color);
@@ -53,24 +68,24 @@ st.markdown("""
         position: sticky;
         top: 0;
         z-index: 1000;
-    }
+    }}
 
-    .brand {
+    .brand {{
         display: flex;
         align-items: center;
         gap: 12px;
-    }
+    }}
 
-    .brand-title {
+    .brand-title {{
         font-family: var(--font-mono);
         font-weight: 700;
         font-size: 1.2rem;
         letter-spacing: 0.1em;
         color: var(--accent-cyan);
         text-transform: uppercase;
-    }
+    }}
 
-    .status-badge {
+    .status-badge {{
         background: rgba(239, 68, 68, 0.2);
         border: 1px solid var(--accent-red);
         color: var(--accent-red);
@@ -79,19 +94,19 @@ st.markdown("""
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
-    }
+    }}
 
     /* Professional Panels */
-    .panel {
+    .panel {{
         background: var(--panel-bg);
         border: 1px solid var(--border-color);
         border-radius: 6px;
         padding: 16px;
         height: 100%;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
+    }}
 
-    .panel-label {
+    .panel-label {{
         font-size: 0.7rem;
         color: var(--text-secondary);
         text-transform: uppercase;
@@ -99,71 +114,71 @@ st.markdown("""
         letter-spacing: 0.05em;
         margin-bottom: 12px;
         display: block;
-    }
+    }}
 
     /* KPI Display */
-    .kpi-container {
+    .kpi-container {{
         margin-bottom: 14px;
-    }
+    }}
 
-    .kpi-header {
+    .kpi-header {{
         display: flex;
         justify-content: space-between;
         font-size: 0.75rem;
         margin-bottom: 6px;
         font-weight: 500;
-    }
+    }}
 
-    .kpi-value {
+    .kpi-value {{
         font-family: var(--font-mono);
         color: var(--text-primary);
-    }
+    }}
 
-    .progress-bar-bg {
+    .progress-bar-bg {{
         background: var(--bg-color);
         height: 4px;
         border-radius: 2px;
         overflow: hidden;
-    }
+    }}
 
-    .progress-bar-fill {
+    .progress-bar-fill {{
         height: 100%;
         transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         background: var(--accent-cyan);
         box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
-    }
+    }}
 
     /* Situational Room */
-    .scenario-header {
+    .scenario-header {{
         background: linear-gradient(135deg, var(--panel-bg) 0%, var(--bg-color) 100%);
         border-left: 4px solid var(--accent-red);
         border-radius: 0 6px 6px 0;
         padding: 20px;
         margin-bottom: 20px;
-    }
+    }}
 
-    .scenario-id {
+    .scenario-id {{
         font-family: var(--font-mono);
         color: var(--accent-cyan);
         font-size: 0.75rem;
         margin-bottom: 4px;
-    }
+    }}
 
-    .scenario-title {
+    .scenario-title {{
         font-size: 1.5rem;
         font-weight: 800;
         color: var(--text-primary);
-    }
+    }}
 
-    .scenario-desc {
+    .scenario-desc {{
         color: var(--text-secondary);
         line-height: 1.6;
         margin-top: 12px;
         font-size: 0.95rem;
-    }
+    }}
 
     /* Forms and Buttons */
-    .stButton > button {
+    .stButton > button {{
         background: var(--accent-cyan) !important;
         color: #000 !important;
         font-weight: 700 !important;
@@ -173,15 +188,15 @@ st.markdown("""
         letter-spacing: 0.05em !important;
         padding: 14px !important;
         transition: all 0.2s ease !important;
-    }
+    }}
 
-    .stButton > button:hover {
+    .stButton > button:hover {{
         opacity: 0.9 !important;
         box-shadow: 0 0 12px rgba(6, 182, 212, 0.3) !important;
         transform: none !important;
-    }
+    }}
 
-    .stRadio label {
+    .stRadio label {{
         background: #2d3748 !important;
         border: 1px solid var(--border-color) !important;
         color: var(--text-primary) !important;
@@ -189,31 +204,75 @@ st.markdown("""
         border-radius: 4px !important;
         font-size: 0.85rem !important;
         margin-bottom: 8px !important;
-    }
+    }}
 
-    .stRadio div[role="radiogroup"] > label:hover {
+    .stRadio div[role="radiogroup"] > label:hover {{
         border-color: var(--accent-cyan) !important;
         background: rgba(6, 182, 212, 0.05) !important;
-    }
+    }}
 
     /* Terminal Logs */
-    .log-item {
+    .log-item {{
         font-family: var(--font-mono);
         font-size: 0.7rem;
         padding: 4px 0 4px 8px;
         border-left: 2px solid var(--border-color);
         margin-bottom: 8px;
-    }
-    .log-ts { color: var(--accent-yellow); }
-    .log-act { color: var(--accent-cyan); font-weight: 600; margin-left: 4px; }
-    .log-msg { color: var(--text-secondary); display: block; margin-top: 2px; }
+    }}
+    .log-ts {{ color: var(--accent-yellow); }}
+    .log-act {{ color: var(--accent-cyan); font-weight: 600; margin-left: 4px; }}
+    .log-msg {{ color: var(--text-secondary); display: block; margin-top: 2px; }}
 
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg-color); }
-    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
+    ::-webkit-scrollbar {{ width: 4px; }}
+    ::-webkit-scrollbar-track {{ background: var(--bg-color); }}
+    ::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 2px; }}
+    
+    /* --- LOGO FOOTER CSS --- */
+    .custom-footer {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: rgba(15, 23, 42, 0.95);
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(5px);
+    }}
+    .footer-logo {{
+        height: 40px; /* Maksymalna wysokość logo na pasku */
+        max-width: 90%;
+        object-fit: contain;
+        opacity: 0.85; /* Delikatne wtopienie w tło */
+        transition: opacity 0.3s;
+    }}
+    .footer-logo:hover {{
+        opacity: 1;
+    }}
     </style>
 """, unsafe_allow_html=True)
+
+# WSTRZYKNIĘCIE STOPKI Z LOGO NA KAŻDĄ STRONĘ
+if logo_b64:
+    st.markdown(f"""
+        <div class="custom-footer">
+            <img src="data:image/png;base64,{logo_b64}" class="footer-logo" alt="System Logo">
+        </div>
+    """, unsafe_allow_html=True)
+else:
+    # Fallback tekstowy jeśli plik logo.png nie zostanie odnaleziony
+    st.markdown("""
+        <div class="custom-footer">
+            <span style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 12px; letter-spacing: 2px;">
+                SYSTEM // SECURE CONNECTION ESTABLISHED
+            </span>
+        </div>
+    """, unsafe_allow_html=True)
+
 
 # --- GAME ENGINE STATE ---
 @st.cache_resource
@@ -348,7 +407,7 @@ SCENARIOS = {
             "questions": {
                 "IT": {"label": "OPERACJE IT", "options": {"Kontraktacja zewnętrznych ekspertów Incident Response": {"pat": +10, "avl": +15, "fin": -30, "comp": +20}, "Odzyskiwanie zasobów siłami wewnętrznymi": {"pat": -10, "avl": -10, "fin": +15, "comp": -10}}},
                 "Med": {"label": "KOMUNIKACJA PR", "options": {"Otwarty dialog i wsparcie psychologiczne rodzin": {"pat": +15, "avl": 0, "fin": -5, "comp": +10}, "Blokada informacyjna (względy bezpieczeństwa)": {"pat": -15, "avl": 0, "fin": 0, "comp": -20}}},
-                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Transparentne przyznanie się do naruszenia": {"pat": +5, "avl": 0, "fin": -15, "comp": +25}, "Agresywna kampania prawna i zaprzeczanie": {"pat": -5, "avl": 0, "fin": +5, "comp": -30}}}
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Transparentne przyznanie się do naruszenia": {"pat": +5, "avl": 0, "fin": -15, "comp": +25}, "Agresy kampania prawna i zaprzeczanie": {"pat": -5, "avl": 0, "fin": +5, "comp": -30}}}
             }
          },
          4: {
@@ -506,7 +565,6 @@ def calculate_team_metrics(team_name):
 
 def render_kpi(label, value, color="var(--accent-cyan)"):
     pct = int((value/150)*100)
-    # Critical state color - use CSS variable for consistency
     current_color = "var(--accent-red)" if value < 50 else color
     
     st.markdown(f"""
