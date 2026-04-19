@@ -22,7 +22,7 @@ def get_image_as_base64(file_path):
     return base64.b64encode(data).decode()
 
 # Pobierz base64 logotypu, aby użyć go w CSS (jeśli plik logo.png nie istnieje, zignoruje to bez błędu)
-logo_b64 = get_image_as_base64("logo.png")
+logo_b64 = get_image_as_base64("LOGO.png")
 
 # --- PROFESSIONAL POLISH CSS ---
 st.markdown(f"""
