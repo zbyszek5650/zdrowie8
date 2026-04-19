@@ -563,7 +563,7 @@ def admin_view():
     st.markdown("""
         <div class="command-header">
             <div class="brand">
-                <div class="brand-title">HOSPITAL OS // COMMAND // ROOT</div>
+                <div class="brand-title">CYBERGRA DECYZYJNA // COMMAND // ROOT</div>
             </div>
             <div style="display: flex; gap: 1rem; align-items: center;">
                 <div class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--accent-green); border-color: rgba(34, 197, 94, 0.3);">SYSTEM READY</div>
