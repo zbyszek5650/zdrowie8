@@ -590,10 +590,15 @@ def admin_view():
                 state["round"] += 1
                 for t in state["teams"]: state["teams"][t]["ready"] = False
                 st.rerun()
+        elif state["round"] == rounds_total:
+            if st.button("📊 GENERUJ RAPORTY KOŃCOWE", use_container_width=True):
+                state["round"] += 1
+                st.rerun()
         else:
-            if st.button("🔄 ZAMKNIJ I RESETUJ", use_container_width=True):
+            if st.button("🔄 ZAKOŃCZ SESJĘ I RESETUJ", use_container_width=True):
                 state["round"] = 0
                 state["teams"] = {}
+                state["logs"] = []
                 st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -717,10 +722,13 @@ def team_view():
                         state["teams"][team_name]["ready"] = True
                         st.rerun()
             else:
-                st.markdown("""
-                    <div class='panel' style='background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);'>
-                        <h4 style='color: #10b981;'>✓ TRANSMISJA PRZYJĘTA</h4>
-                        <p style='color: #94a3b8; font-size: 0.9rem;'>Analiza strategiczna w toku. Twoje rozkazy zostały zakolejkowane w systemie centralnym.</p>
+                st.markdown(f"""
+                    <div class='panel' style='background: rgba(6, 182, 212, 0.05); border-color: var(--accent-cyan);'>
+                        <h4 style='color: var(--accent-cyan);'>✓ TRANSMISJA PRZYJĘTA</h4>
+                        <p style='color: var(--text-secondary); font-size: 0.9rem;'>
+                            Twoje rozkazy zostały zakolejkowane. <br>
+                            Status: <b>Oczekiwanie na analizę Dowództwa...</b>
+                        </p>
                     </div>
                 """, unsafe_allow_html=True)
                 if st.button("ODŚWIEŻ DANE SIECIOWE", use_container_width=True): st.rerun()
