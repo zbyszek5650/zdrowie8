@@ -6,7 +6,7 @@ import os
 
 # --- KONFIGURACJA STRONY ---
 st.set_page_config(
-    page_title="HOSPITAL OS // COMMAND CENTER",
+    page_title="CYBERGRA DLA SZTABU KRYZYSOWEGO - ATAK NA SZPITAL // COMMAND CENTER",
     layout="wide",
     page_icon="💻",
     initial_sidebar_state="collapsed"
@@ -331,7 +331,7 @@ def render_cyber_kpi(label, value, is_critical=False):
 def login_view():
     st.markdown("""
         <div class="top-bar" style="margin-top: 0;">
-            <div class="top-bar-title">HOSPITAL OS // COMMAND</div>
+            <div class="top-bar-title">CYBERGRA DLA SZTABU KRYZYSOWEGO - ATAK NA SZPITAL // COMMAND</div>
             <div class="top-bar-info">AUTORYZACJA WYMAGANA</div>
         </div>
     """, unsafe_allow_html=True)
@@ -367,7 +367,7 @@ def login_view():
 def admin_view():
     st.markdown("""
         <div class="top-bar" style="margin-top: 0;">
-            <div class="top-bar-title">HOSPITAL OS // ROOT ACCESS</div>
+            <div class="top-bar-title">CYBERGRA DLA SZTABU KRYZYSOWEGO - ATAK NA SZPITAL // ROOT ACCESS</div>
             <div class="top-bar-info">
                 <span onclick="window.location.reload();" style="cursor:pointer;">[ ZAKOŃCZ SESJĘ ]</span>
             </div>
