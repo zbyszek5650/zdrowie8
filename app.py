@@ -229,144 +229,261 @@ state = get_engine()
 
 # --- SCENARIOS DATABASE ---
 SCENARIOS = {
+    "Wariant A: Ransomware (Klasyczny)": {
+         1: {
+            "title": "FAZA 1: PIERWSZE SZYFROWANIE",
+            "desc": "Stacje robocze w rejestracji nagle tracą dostęp do plików. Na ekranach pojawia się informacja o zaszyfrowaniu danych. Atakujący żądają 500 000 PLN w Bitcoin.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Natychmiastowe odłączenie zainfekowanych stacji": {"pat": 0, "avl": -10, "fin": 0, "comp": +5}, "Próba lokalizacji złośliwego procesu": {"pat": -5, "avl": 0, "fin": 0, "comp": -5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Kontynuacja pracy na papierze": {"pat": +10, "avl": -5, "fin": -5, "comp": 0}, "Czekanie na przywrócenie systemów": {"pat": -15, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Zawiadomienie Policji i CERT": {"pat": 0, "avl": 0, "fin": 0, "comp": +20}, "Brak zgłoszenia (ochrona wizerunku)": {"pat": 0, "avl": 0, "fin": 0, "comp": -25}}}
+            }
+         },
+         2: {
+            "title": "FAZA 2: ROZPRZESTRZENIANIE",
+            "desc": "Wirus przeskoczył do sieci laboratorium. Wyniki badań nie trafiają do lekarzy. Na SORze rośnie kolejka, pacjenci stają się agresywni.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Blokada całej sieci wewnętrznej": {"pat": -5, "avl": -30, "fin": -10, "comp": +10}, "Selektywne wyłączanie serwerów": {"pat": -10, "avl": -10, "fin": -5, "comp": -10}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Przekierowanie pacjentów do innych szpitali": {"pat": +20, "avl": 0, "fin": -20, "comp": +10}, "Próba pracy w chaosie": {"pat": -30, "avl": 0, "fin": 0, "comp": -20}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Oficjalny komunikat o awarii": {"pat": +10, "avl": 0, "fin": 0, "comp": +15}, "Ukrywanie skali problemu": {"pat": -20, "avl": 0, "fin": 0, "comp": -30}}}
+            }
+         },
+         3: {
+            "title": "FAZA 3: NEGOCJACJE",
+            "desc": "Hakerzy grożą publikacją danych pacjentów, jeśli okup nie zostanie wpłacony w ciągu 12h. Media zaczynają dopytywać o wyciek.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Podjęcie prób deszyfracji narzędziami darmowymi": {"pat": -5, "avl": -5, "fin": 0, "comp": -10}, "Przywracanie z backupów (powolne)": {"pat": +5, "avl": +10, "fin": -5, "comp": +10}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Weryfikacja danych pacjentów z papieru": {"pat": +15, "avl": 0, "fin": -5, "comp": 0}, "Zaniechanie weryfikacji tożsamości": {"pat": -40, "avl": 0, "fin": 0, "comp": -20}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Wynajęcie negocjatora": {"pat": 0, "avl": 0, "fin": -15, "comp": +5}, "Ignorowanie hakerów": {"pat": 0, "avl": 0, "fin": 0, "comp": -10}}}
+            }
+         },
+         4: {
+            "title": "FAZA 4: ATAK NA BACKUPY",
+            "desc": "Okazuje się, że backupy również zostały częściowo uszkodzone. Szpital staje przed wizją utraty historii leczenia tysięcy ludzi.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Próba odzyskania danych z dysków fizycznych": {"pat": 0, "avl": +5, "fin": -10, "comp": +5}, "Zaakceptowanie utraty części danych": {"pat": -25, "avl": -20, "fin": +10, "comp": -30}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Wywiady lekarskie z każdym pacjentem": {"pat": +20, "avl": 0, "fin": -10, "comp": 0}, "Leczenie na podstawie szczątkowych danych": {"pat": -50, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Zgłoszenie naruszenia do UODO": {"pat": 0, "avl": 0, "fin": 0, "comp": +40}, "Zatajenie utraty danych": {"pat": 0, "avl": 0, "fin": 0, "comp": -50}}}
+            }
+         },
+         5: {
+            "title": "FAZA 5: ODBUDOWA",
+            "desc": "Systemy wracają. Rozpoczyna się wielkie sprzątanie i audyt poincydentalny.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Wdrożenie polityki offline backup": {"pat": 0, "avl": +20, "fin": -10, "comp": +15}, "Instalacja nowszej wersji antywirusa": {"pat": 0, "avl": -10, "fin": +5, "comp": -15}}},
+                "Med": {"label": "EDUKACJA", "options": {"Szkolenie personelu z phishingu": {"pat": +10, "avl": 0, "fin": -5, "comp": +10}, "Brak dodatkowych szkoleń": {"pat": -10, "avl": 0, "fin": 0, "comp": -10}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Stworzenie realnej procedury DRP": {"pat": +5, "avl": +5, "fin": -15, "comp": +20}, "Ograniczenie budżetu IT na poczet strat": {"pat": -15, "avl": -20, "fin": +10, "comp": -10}}}
+            }
+         }
+    },
+    "Wariant B: Insider Threat (Błąd Ludzki/Zemsta)": {
+         1: {
+            "title": "FAZA 1: DZIWNE UPRAWNIENIA",
+            "desc": "Zwolniony wczoraj informatyk nadal loguje się do systemu. Zmienia hasła administratorów domeny. Szpital traci kontrolę nad kontami personelu.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Fizyczne odłączenie serwera AD": {"pat": 0, "avl": -30, "fin": 0, "comp": +10}, "Próba blokady konta z poziomu zapasowego": {"pat": -15, "avl": 0, "fin": 0, "comp": -10}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Działanie bez dostępu do kont (hasła papierowe)": {"pat": +5, "avl": -10, "fin": 0, "comp": 0}, "Logowanie na konta 'ogólne'": {"pat": -10, "avl": 0, "fin": 0, "comp": -25}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Zawiadomienie prokuratury": {"pat": 0, "avl": 0, "fin": 0, "comp": +20}, "Próba polubownego kontaktu": {"pat": 0, "avl": 0, "fin": 0, "comp": -10}}}
+            }
+         },
+         2: {
+            "title": "FAZA 2: SABOTAŻ BAZY LEKÓW",
+            "desc": "W bazie aptecznej zmieniono dawkowanie leków krytycznych. Lekarze zauważają błędy w ostatniej chwili. Systemy wydają błędne instrukcje.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Blokada zapisu do bazy i weryfikacja sum kontrolnych": {"pat": +20, "avl": -10, "fin": -5, "comp": +10}, "Restart serwera bazy danych": {"pat": -10, "avl": -20, "fin": 0, "comp": -5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Podwójna weryfikacja dawki przez dwóch lekarzy": {"pat": +30, "avl": -5, "fin": -5, "comp": 0}, "Zaufanie systemowi (brak czasu)": {"pat": -50, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Wstrzymanie planowych zabiegów": {"pat": +20, "avl": -20, "fin": -30, "comp": +10}, "Utrzymanie pełnej operacyjności": {"pat": -40, "avl": 0, "fin": +10, "comp": -20}}}
+            }
+         },
+         3: {
+            "title": "FAZA 3: WYCIEK DO KONKURENCJI/MEDIÓW",
+            "desc": "Lista płac i premie zarządu trafiają do lokalnej gazety. Atmosfera w szpitalu staje się toksyczna. Personel zaczyna strajkować.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Audyt wszystkich wydruków i maili": {"pat": 0, "avl": 0, "fin": -5, "comp": +10}, "Blokada dostępu do internetu": {"pat": 0, "avl": -10, "fin": 0, "comp": -10}}},
+                "Med": {"label": "ATMOSFERA", "options": {"Otwarte spotkanie z dyrekcją": {"pat": +5, "avl": 0, "fin": -5, "comp": +5}, "Ignorowanie protestów": {"pat": -10, "avl": 0, "fin": 0, "comp": -10}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Upublicznienie zarobków (pełna transparentność)": {"pat": 0, "avl": 0, "fin": -10, "comp": +25}, "Grozba zwolnień dyscyplinarnych": {"pat": 0, "avl": 0, "fin": 0, "comp": -30}}}
+            }
+         },
+         4: {
+            "title": "FAZA 4: USUNIĘCIE KLUCZOWYCH KONFIGURACJI",
+            "desc": "Znikają ustawienia aparatury RTG i TK. Sprzęt medyczny jest sprawny, ale nie można go uruchomić z powodu braku oprogramowania sterującego.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Ściągnięcie serwisu producenta": {"pat": +10, "avl": +20, "fin": -25, "comp": +5}, "Próba wgrania starych ustawień": {"pat": -10, "avl": -10, "fin": 0, "comp": -5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Transport pacjentów na badania do innych miast": {"pat": +20, "avl": 0, "fin": -20, "comp": 0}, "Rezygnacja z badań obrazowych": {"pat": -40, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Fundusz awaryjny na naprawy": {"pat": 0, "avl": 0, "fin": -40, "comp": +5}, "Czekanie na darmowe wsparcie": {"pat": -10, "avl": -10, "fin": +10, "comp": -10}}}
+            }
+         },
+         5: {
+            "title": "FAZA 5: POST-MORTEM",
+            "desc": "Sprawca zostaje ujęty. Pozostaje trauma i zniszczona reputacja.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Wdrożenie procedury 'off-boarding'": {"pat": 0, "avl": 0, "fin": -5, "comp": +30}, "Większa wiara w 'lojalność'": {"pat": 0, "avl": 0, "fin": 0, "comp": -40}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Psycholog dla personelu": {"pat": +15, "avl": 0, "fin": -5, "comp": 0}, "Brak działań wspierających": {"pat": -15, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Nowa polityka bezpieczeństwa personalnego": {"pat": 0, "avl": 0, "fin": -10, "comp": +20}, "Zwolnienie wszystkich z działu IT": {"pat": -20, "avl": -30, "fin": -10, "comp": -10}}}
+            }
+         }
+    },
     "Wariant C: Zaawansowany Atak APT (5 Rund)": {
          1: {
             "title": "FAZA 1: ANOMALIA / REKONESANS",
             "desc": "Systemy PACS wykazują znaczne opóźnienia w transmisji danych obrazowych. Jednocześnie administratorzy zgłaszają serię nieudanych prób logowania na konta personelu administracyjnego. Ruch wychodzący z serwera LIS osiąga niespotykane piki.",
             "questions": {
-                "IT": {
-                    "label": "OPERACJE IT",
-                    "options": {
-                        "Izolacja serwera LIS i wymuszony reset haseł": {"pat": 0, "avl": -10, "fin": -5, "comp": +10},
-                        "Monitorowanie pasywne i analiza logów": {"pat": -5, "avl": +5, "fin": 0, "comp": -10}
-                    }
-                },
-                "Med": {
-                    "label": "PRODUKCJA MEDYCZNA",
-                    "options": {
-                        "Przejście na dokumentację analogową dla RTG": {"pat": +10, "avl": 0, "fin": -5, "comp": 0},
-                        "Utrzymanie pracy w środowisku PACS mimo błędów": {"pat": -10, "avl": 0, "fin": 0, "comp": 0}
-                    }
-                },
-                "Dir": {
-                    "label": "SZTAB KRYZYSOWY",
-                    "options": {
-                        "Aktywacja niejawnego zespołu reagowania": {"pat": +5, "avl": 0, "fin": -5, "comp": +5},
-                        "Klasyfikacja zdarzenia jako rutynowa awaria IT": {"pat": -10, "avl": 0, "fin": +5, "comp": -5}
-                    }
-                }
+                "IT": {"label": "OPERACJE IT", "options": {"Izolacja serwera LIS i wymuszony reset haseł": {"pat": 0, "avl": -10, "fin": -5, "comp": +10}, "Monitorowanie pasywne i analiza logów": {"pat": -5, "avl": +5, "fin": 0, "comp": -10}}},
+                "Med": {"label": "PRODUKCJA MEDYCZNA", "options": {"Przejście na dokumentację analogową dla RTG": {"pat": +10, "avl": 0, "fin": -5, "comp": 0}, "Utrzymanie pracy w środowisku PACS mimo błędów": {"pat": -10, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Aktywacja niejawnego zespołu reagowania": {"pat": +5, "avl": 0, "fin": -5, "comp": +5}, "Klasyfikacja zdarzenia jako rutynowa awaria IT": {"pat": -10, "avl": 0, "fin": +5, "comp": -5}}}
             }
          },
          2: {
             "title": "FAZA 2: EKSFILTRACJA I PARALIŻ",
             "desc": "Atakujący ujawniają obecność. Systemy BMS (automatyka budynkowa) zostają przejęte. Klimatyzacja w salach operacyjnych zostaje zablokowana na maksymalnej temperaturze. Żądanie okupu: 2 000 000 PLN.",
             "questions": {
-                "IT": {
-                    "label": "OPERACJE IT",
-                    "options": {
-                        "Strategiczny blackout sieci (Full Lockdown)": {"pat": -10, "avl": -40, "fin": -15, "comp": +20},
-                        "Surgaliczna próba izolacji BMS (praca ciągła)": {"pat": -30, "avl": -10, "fin": -10, "comp": -15}
-                    }
-                },
-                "Med": {
-                    "label": "PRODUKCJA MEDYCZNA",
-                    "options": {
-                        "Ewakuacja bloków operacyjnych": {"pat": +25, "avl": 0, "fin": -10, "comp": +10},
-                        "Kontynuacja zabiegów w trybie awaryjnym": {"pat": -40, "avl": 0, "fin": -20, "comp": -30}
-                    }
-                },
-                "Dir": {
-                    "label": "SZTAB KRYZYSOWY",
-                    "options": {
-                        "Ogłoszenie stanu zdarzenia masowego": {"pat": +20, "avl": 0, "fin": -25, "comp": +20},
-                        "Cisza medialna i blokada informacji": {"pat": -20, "avl": 0, "fin": +10, "comp": -35}
-                    }
-                }
+                "IT": {"label": "OPERACJE IT", "options": {"Strategiczny blackout sieci (Full Lockdown)": {"pat": -10, "avl": -40, "fin": -15, "comp": +20}, "Surgaliczna próba izolacji BMS (praca ciągła)": {"pat": -30, "avl": -10, "fin": -10, "comp": -15}}},
+                "Med": {"label": "PRODUKCJA MEDYCZNA", "options": {"Ewakuacja bloków operacyjnych": {"pat": +25, "avl": 0, "fin": -10, "comp": +10}, "Kontynuacja zabiegów w trybie awaryjnym": {"pat": -40, "avl": 0, "fin": -20, "comp": -30}}},
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Ogłoszenie stanu zdarzenia masowego": {"pat": +20, "avl": 0, "fin": -25, "comp": +20}, "Cisza medialna i blokada informacji": {"pat": -20, "avl": 0, "fin": +10, "comp": -35}}}
             }
          },
          3: {
             "title": "FAZA 3: WOJNA INFORMACYJNA",
             "desc": "Wyciek danych pacjentów VIP. Media społecznościowe zalewa fala zrzutów ekranu z danymi wrażliwymi. Zdezorientowane rodziny pacjentów blokują wejście do szpitala.",
             "questions": {
-                "IT": {
-                    "label": "OPERACJE IT",
-                    "options": {
-                        "Kontraktacja zewnętrznych ekspertów Incident Response": {"pat": +10, "avl": +15, "fin": -30, "comp": +20},
-                        "Odzyskiwanie zasobów siłami wewnętrznymi": {"pat": -10, "avl": -10, "fin": +15, "comp": -10}
-                    }
-                },
-                "Med": {
-                    "label": "KOMUNIKACJA PR",
-                    "options": {
-                        "Otwarty dialog i wsparcie psychologiczne rodzin": {"pat": +15, "avl": 0, "fin": -5, "comp": +10},
-                        "Blokada informacyjna (względy bezpieczeństwa)": {"pat": -15, "avl": 0, "fin": 0, "comp": -20}
-                    }
-                },
-                "Dir": {
-                    "label": "SZTAB KRYZYSOWY",
-                    "options": {
-                        "Transparentne przyznanie się do naruszenia": {"pat": +5, "avl": 0, "fin": -15, "comp": +25},
-                        "Agresywna kampania prawna i zaprzeczanie": {"pat": -5, "avl": 0, "fin": +5, "comp": -30}
-                    }
-                }
+                "IT": {"label": "OPERACJE IT", "options": {"Kontraktacja zewnętrznych ekspertów Incident Response": {"pat": +10, "avl": +15, "fin": -30, "comp": +20}, "Odzyskiwanie zasobów siłami wewnętrznymi": {"pat": -10, "avl": -10, "fin": +15, "comp": -10}}},
+                "Med": {"label": "KOMUNIKACJA PR", "options": {"Otwarty dialog i wsparcie psychologiczne rodzin": {"pat": +15, "avl": 0, "fin": -5, "comp": +10}, "Blokada informacyjna (względy bezpieczeństwa)": {"pat": -15, "avl": 0, "fin": 0, "comp": -20}}},
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Transparentne przyznanie się do naruszenia": {"pat": +5, "avl": 0, "fin": -15, "comp": +25}, "Agresywna kampania prawna i zaprzeczanie": {"pat": -5, "avl": 0, "fin": +5, "comp": -30}}}
             }
          },
          4: {
             "title": "FAZA 4: IMPAS OPERACYJNY",
             "desc": "Wyczerpanie personelu sięga zenitu. Podawanie leków odbywa się bez wsparcia systemowego. Rozpoczynają się kontrole z organów nadzorczych (UODO, MZ).",
             "questions": {
-                "IT": {
-                    "label": "OPERACJE IT",
-                    "options": {
-                        "Przekazanie infrastruktury do analizy śledczej": {"pat": -15, "avl": -20, "fin": 0, "comp": +30},
-                        "Priorytetyzacja przywracania bazy leków": {"pat": +25, "avl": +20, "fin": -10, "comp": -20}
-                    }
-                },
-                "Med": {
-                    "label": "PRODUKCJA MEDYCZNA",
-                    "options": {
-                        "Powołanie Komisji Triage’u Etycznego": {"pat": +15, "avl": 0, "fin": 0, "comp": +10},
-                        "Utrzymanie standardowej procedury (ryzyko błędów)": {"pat": -30, "avl": 0, "fin": 0, "comp": -20}
-                    }
-                },
-                "Dir": {
-                    "label": "SZTAB KRYZYSOWY",
-                    "options": {
-                        "Pełna współpraca z nadzorem państwowym": {"pat": 0, "avl": 0, "fin": 0, "comp": +25},
-                        "Blokada dostępu do dokumentacji (linia obrony)": {"pat": 0, "avl": 0, "fin": -20, "comp": -30}
-                    }
-                }
+                "IT": {"label": "OPERACJE IT", "options": {"Przekazaie infrastruktury do analizy śledczej": {"pat": -15, "avl": -20, "fin": 0, "comp": +30}, "Priorytetyzacja przywracania bazy leków": {"pat": +25, "avl": +20, "fin": -10, "comp": -20}}},
+                "Med": {"label": "PRODUKCJA MEDYCZNA", "options": {"Powołanie Komisji Triage’u Etycznego": {"pat": +15, "avl": 0, "fin": 0, "comp": +10}, "Utrzymanie standardowej procedury (ryzyko błędów)": {"pat": -30, "avl": 0, "fin": 0, "comp": -20}}},
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Pełna współpraca z nadzorem państwowym": {"pat": 0, "avl": 0, "fin": 0, "comp": +25}, "Blokada dostępu do dokumentacji (linia obrony)": {"pat": 0, "avl": 0, "fin": -20, "comp": -30}}}
             }
          },
          5: {
             "title": "FAZA 5: POST-MORTEM",
             "desc": "Opanowanie wektora ataku. Rozpoczyna się szacowanie strat długofalowych i planowanie nowej architektury bezpieczeństwa.",
             "questions": {
-                "IT": {
-                    "label": "STRATEGIA IT",
-                    "options": {
-                        "Migracja do chmury i model Zero Trust": {"pat": +10, "avl": +30, "fin": -30, "comp": +20},
-                        "Odbudowa starych systemów z nowym EDR": {"pat": -10, "avl": -15, "fin": +15, "comp": -20}
-                    }
-                },
-                "Med": {
-                    "label": "EDUKACJA",
-                    "options": {
-                        "Cykliczne wiertła bezpieczeństwa (Red Teaming)": {"pat": +20, "avl": 0, "fin": -10, "comp": +15},
-                        "Jednorazowy audyt zewnętrzny": {"pat": -15, "avl": 0, "fin": +5, "comp": -15}
-                    }
-                },
-                "Dir": {
-                    "label": "SZTAB KRYZYSOWY",
-                    "options": {
-                        "Restrukturyzacja zarządu i nowe partnerstwa": {"pat": 0, "avl": 0, "fin": +20, "comp": +10},
-                        "Wyznaczenie kozłów ofiarnych w dziale IT": {"pat": 0, "avl": 0, "fin": -10, "comp": -10}
-                    }
-                }
+                "IT": {"label": "STRATEGIA IT", "options": {"Migracja do chmury i model Zero Trust": {"pat": +10, "avl": +30, "fin": -30, "comp": +20}, "Odbudowa starych systemów z nowym EDR": {"pat": -10, "avl": -15, "fin": +15, "comp": -20}}},
+                "Med": {"label": "EDUKACJA", "options": {"Cykliczne wiertła bezpieczeństwa (Red Teaming)": {"pat": +20, "avl": 0, "fin": -10, "comp": +15}, "Jednorazowy audyt zewnętrzny": {"pat": -15, "avl": 0, "fin": +5, "comp": -15}}},
+                "Dir": {"label": "SZTAB KRYZYSOWY", "options": {"Restrukturyzacja zarządu i nowe partnerstwa": {"pat": 0, "avl": 0, "fin": +20, "comp": +10}, "Wyznaczenie kozłów ofiarnych w dziale IT": {"pat": 0, "avl": 0, "fin": -10, "comp": -10}}}
+            }
+         }
+    },
+    "Wariant D: IoT & Supply Chain Sabotage": {
+         1: {
+            "title": "FAZA 1: AWARIA POMP INFUZYJNYCH",
+            "desc": "Pielęgniarki zgłaszają, że pompy infuzyjne na oddziale intensywnej terapii restartują się bez powodu. Niektóre zmieniają szybkość podawania leków.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Fizyczna izolacja sieci medycznej od Wi-Fi": {"pat": +5, "avl": -20, "fin": 0, "comp": +10}, "Próba wgrywania patcha w trakcie pracy": {"pat": -10, "avl": 0, "fin": 0, "comp": -5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Działanie w stałym nadzorze przy łóżku": {"pat": +20, "avl": 0, "fin": -5, "comp": 0}, "Zaufanie alarmom dźwiękowym (które mogą nie działać)": {"pat": -40, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Pilny kontakt z producentem sprzętu": {"pat": 0, "avl": 0, "fin": 0, "comp": +10}, "Skargi do serwisu sprzątającego (podejrzenie zalania)": {"pat": -5, "avl": 0, "fin": 0, "comp": -10}}}
+            }
+         },
+         2: {
+            "title": "FAZA 2: MANIPULACJA WINDAMI",
+            "desc": "Windy w całym szpitalu stają. Pacjenci jadący na pilne operacje zostają uwięzieni. Ktoś zdalnie przejął sterowanie automatyką Hitachi/Otis.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Reset sterowników technicznych (ryzyko spadku)": {"pat": -5, "avl": -5, "fin": -10, "comp": -5}, "Awaryjne otwieranie manualne przez straż": {"pat": +15, "avl": 0, "fin": -5, "comp": +5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Uruchomienie transportu schodami (ryzykowne)": {"pat": +5, "avl": 0, "fin": -5, "comp": 0}, "Czekanie na przywrócenie sterowania": {"pat": -25, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Poinformowanie straży pożarnej": {"pat": +10, "avl": 0, "fin": 0, "comp": +15}, "Ukrywanie awarii przed pacjentami": {"pat": -10, "avl": 0, "fin": 0, "comp": -20}}}
+            }
+         },
+         3: {
+            "title": "FAZA 3: SKUŻONE LOGISTYKI LEKÓW",
+            "desc": "System zamówień leków wysłał puste zamówienia do dostawcy. Zaczyna brakować tlenu i podstawowych antybiotyków.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Manualna weryfikacja wszystkich wyjść sieciowych API": {"pat": 0, "avl": 0, "fin": -5, "comp": +10}, "Podejrzenie błędu po stronie hurtowni": {"pat": 0, "avl": 0, "fin": 0, "comp": -10}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Ręczne inwentaryzacje na oddziałach": {"pat": +10, "avl": 0, "fin": -5, "comp": 0}, "Leczenie tym co zostało (bez planu)": {"pat": -30, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Pożyczanie leków od sąsiednich jednostek": {"pat": +20, "avl": 0, "fin": -15, "comp": +5}, "Czekanie na terminowe dostawy": {"pat": -20, "avl": 0, "fin": 0, "comp": 0}}}
+            }
+         },
+         4: {
+            "title": "FAZA 4: SABOTAŻ KOMÓR KRWI",
+            "desc": "Termostaty w chłodziarkach z krwią zostały przestawione na +25 stopni. Krew jest do wyrzucenia. Planowane operacje muszą zostać odwołane.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Montaż niezależnych czujników fizycznych": {"pat": +10, "avl": 0, "fin": -10, "comp": +5}, "Wiara w logi systemowe (które kłamią)": {"pat": -30, "avl": 0, "fin": 0, "comp": -15}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Całkowite wstrzymanie operacji krwiopochodnych": {"pat": +10, "avl": -30, "fin": -10, "comp": +10}, "Próba użycia krwi bez weryfikacji temperatury": {"pat": -100, "avl": 0, "fin": 0, "comp": -50}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Pilna prośba do RCKiK o nowe zasoby": {"pat": +20, "avl": 0, "fin": -10, "comp": +5}, "Zatajenie błędu termostatów": {"pat": -50, "avl": 0, "fin": 0, "comp": -40}}}
+            }
+         },
+         5: {
+            "title": "FAZA 5: POST-MORTEM",
+            "desc": "IoT okazało się piętą achillesową. Wymagana całkowita zmiana architektury IoT.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Fizyczna separacja sieci medycznej od innych": {"pat": 0, "avl": +25, "fin": -20, "comp": +15}, "Zakup droższego Firewalla": {"pat": 0, "avl": -10, "fin": -5, "comp": -5}}},
+                "Med": {"label": "EDUKACJA", "options": {"Szkolenie techniczne personelu z obsługi wind/pomp": {"pat": +10, "avl": 0, "fin": -5, "comp": 0}, "Brak zmian": {"pat": -10, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Pozew przeciwko producentowi sprzętu IoT": {"pat": 0, "avl": 0, "fin": +15, "comp": +10}, "Brak działań prawnych": {"pat": 0, "avl": 0, "fin": -10, "comp": -10}}}
+            }
+         }
+    },
+    "Wariant E: Phishing Masowy i Socjotechnika": {
+         1: {
+            "title": "FAZA 1: MAILE OD 'DYREKCJI'",
+            "desc": "Cały personel otrzymuje maile z 'nowym regulaminem premii'. Załącznik zawiera złośliwe oprogramowanie typu Stealer. 60% pielęgniarek otwiera plik.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Blokada kont mailowych wszystkich użytkowników": {"pat": 0, "avl": -20, "fin": 0, "comp": +10}, "Próba usuwania maili z serwera (Ex Post)": {"pat": -5, "avl": 0, "fin": 0, "comp": -10}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Ostrzeżenie personelu na grupach prywatnych": {"pat": +10, "avl": 0, "fin": 0, "comp": 0}, "Czekanie na oficjalny komunikat": {"pat": -15, "avl": 0, "fin": 0, "comp": 0}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Poinformowanie, że to nie był mail od dyrekcji": {"pat": +5, "avl": 0, "fin": 0, "comp": +5}, "Milczenie (wstyd z powodu kradzieży tożsamości)": {"pat": -10, "avl": 0, "fin": 0, "comp": -15}}}
+            }
+         },
+         2: {
+            "title": "FAZA 2: KRADZIEŻ TOŻSAMOŚCI ŚWIADCZĄCYCH",
+            "desc": "Hakerzy logują się na portale rozliczeniowe z NFZ. Próbują przekierować płatności za procedury medyczne na swoje konta.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Zmiana haseł do wszystkich systemów zewnętrznych": {"pat": 0, "avl": -5, "fin": 0, "comp": +15}, "Ignorowanie (systemy NFZ są 'bezpieczne')": {"pat": 0, "avl": 0, "fin": -50, "comp": -20}}},
+                "Med": {"label": "BIURO", "options": {"Manualna weryfikacja faktur": {"pat": 0, "avl": 0, "fin": +10, "comp": +10}, "Automatyczne przesyłanie danych": {"pat": 0, "avl": 0, "fin": -30, "comp": -10}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Kontakt z bankiem i NFZ": {"pat": 0, "avl": 0, "fin": +20, "comp": +10}, "Ukrywanie incydentu przed NFZ": {"pat": 0, "avl": 0, "fin": -20, "comp": -40}}}
+            }
+         },
+         3: {
+            "title": "FAZA 3: TELEFON OD 'INFORMATYKA'",
+            "desc": "Pacjenci zaczynają dzwonić z pytaniem, dlaczego dostali SMSy z instrukcją logowania do portalu pacjenta w celu wpłaty za leki. Ktoś personifikuje dział wsparcia.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Wyłączenie portalu pacjenta": {"pat": 0, "avl": -15, "fin": 0, "comp": +5}, "Monitorowanie nieudanych prób logowań": {"pat": -5, "avl": 0, "fin": 0, "comp": -10}}},
+                "Med": {"label": "OBŁSUGA PACJENTA", "options": {"SMS o treści OSTRZEŻENIE do pacjentów": {"pat": +15, "avl": 0, "fin": 0, "comp": +15}, "Brak powiadomienia (koszty SMS masowego)": {"pat": -30, "avl": 0, "fin": 0, "comp": -20}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Zgłoszenie masowej socjotechniki do mediów": {"pat": +5, "avl": 0, "fin": 0, "comp": +10}, "Blokowanie infolinii": {"pat": -10, "avl": -10, "fin": 0, "comp": -10}}}
+            }
+         },
+         4: {
+            "title": "FAZA 4: SFAŁSZOWANE DYREKTYWY MEDYCZNE",
+            "desc": "W systemie pojawiają się sfałszowane notatki o przeniesieniu pacjentów na inne oddziały. Sanepid dostaje fejkowe zgłoszenie o zarazie w szpitalu.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Audyt logów edycji dokumentacji": {"pat": 0, "avl": 0, "fin": -5, "comp": +20}, "Restart systemu": {"pat": -5, "avl": -5, "fin": 0, "comp": -5}}},
+                "Med": {"label": "PION MEDYCZNY", "options": {"Potwierdzanie telefoniczne każdej notatki": {"pat": +10, "avl": -20, "fin": -5, "comp": +5}, "Realizacja notatek (chaos logistyczny)": {"pat": -40, "avl": 0, "fin": 0, "comp": -10}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Zaproszenie Sanepidu na fizyczną wizję lokalną": {"pat": 0, "avl": 0, "fin": -5, "comp": +20}, "Zaprzeczanie przez telefon": {"pat": 0, "avl": 0, "fin": 0, "comp": -10}}}
+            }
+         },
+         5: {
+            "title": "FAZA 5: POST-MORTEM",
+            "desc": "Ludzie okazali się najsłabszym ogniwem. Pora na systemy techniczne ograniczające błędy.",
+            "questions": {
+                "IT": {"label": "OPERACJE IT", "options": {"Wdrożenie MFA (Multi Factor Authentication)": {"pat": 0, "avl": 0, "fin": -10, "comp": +40}, "Zabranie ludziom dostępu do maila": {"pat": 0, "avl": -40, "fin": 0, "comp": -10}}},
+                "Med": {"label": "EDUKACJA", "options": {"Cykliczne testowe phishingi dla personelu": {"pat": +15, "avl": 0, "fin": -5, "comp": +10}, "Jedna prezentacja na zebraniu": {"pat": -10, "avl": 0, "fin": 0, "comp": -5}}},
+                "Dir": {"label": "ZARZĄD", "options": {"Nagroda dla pielęgniarki, która zgłosiła maila": {"pat": +10, "avl": 0, "fin": -5, "comp": +5}, "Ukaranie finansowe tych co kliknęli": {"pat": -20, "avl": 0, "fin": +10, "comp": -30}}}
             }
          }
     }
 }
+
+# --- VERDICT ENGINE ---
+def get_verdict(p, a, f, c):
+    total = p + a + f + c
+    if p < 50:
+        return "❌ KATASTROFA MEDYCZNA: Twoje decyzje doprowadziły do tragicznych błędów lekarskich i utraty życia pacjentów. Szpital zostaje zamknięty przez prokuraturę.", "ERROR_RED"
+    if c < 40:
+        return "⚖️ WYROK SĄDOWY: Całkowite zlekceważenie procedur prawnych i RODO skutkuje rekordowymi karami finansowymi, których szpital nie przeżyje. Zarząd trafia do aresztu.", "ERROR_RED"
+    if a < 40:
+        return "🔌 PARALIŻ CYFROWY: Systemy szpitala zostały trwale uszkodzone. Placówka nie potrafi wrócić do pracy przez miesiące. Pacjenci masowo uciekają do konkurencji.", "WARNING_YELLOW"
+    if f < 40:
+        return "💸 BANKRUCTWO: Szpital opanował atak, ale koszty incident response i kar zjadły cały budżet. Brak środków na pensje i leki zmusza do licytacji komorniczej.", "WARNING_YELLOW"
+    
+    if total > 500:
+        return "🏆 MISTRZOSTWO REAGOWANIA: Wykazałeś się zimną krwią i doskonałym balansem między etyką a technologią. Szpital stał się wzorcem cyberbezpieczeństwa w regionie.", "SUCCESS_GREEN"
+    if total > 400:
+        return "✅ SKUTECZNA DEFENSYWA: Atak został odparty przy minimalnych stratach. Placówka funkcjonuje, a wyciągnięte wnioski pozwolą na uniknięcie błędów w przyszłości.", "SUCCESS_GREEN"
+    
+    return "🟧 PRZETRWANIE: Szpital przetrwał, ale blizny pozostaną na lata. Zaufanie pacjentów zostało nadszarpnięte, a budżet jest mocno naciągnięty.", "NEUTRAL_BLUE"
 
 # --- HELPERS ---
 def calculate_team_metrics(team_name):
@@ -505,12 +622,12 @@ def admin_view():
                 st.image(qr_url, caption="Zeskanuj, aby połączyć jednostkę")
     if state["teams"]:
         st.markdown("<div class='panel'>", unsafe_allow_html=True)
-        st.markdown("<div class='panel-label'>RAPORT POŁĄCZONY</div>", unsafe_allow_html=True)
+        st.markdown("<div class='panel-label'>RANKING GLOBALNY JEDNOSTEK</div>", unsafe_allow_html=True)
         scores = []
         for t in state["teams"]:
             p, a, f, c = calculate_team_metrics(t)
-            scores.append({"JEDNOSTKA": t, "PACJENCI": p, "SYSTEMY": a, "FINANSE": f, "ZGODNOŚĆ": c})
-        st.dataframe(pd.DataFrame(scores).sort_values(by="PACJENCI", ascending=False), use_container_width=True)
+            scores.append({"JEDNOSTKA": t, "SUMA": p+a+f+c, "PACJENCI": p, "SYSTEMY": a, "FINANSE": f, "ZGODNOŚĆ": c})
+        st.dataframe(pd.DataFrame(scores).sort_values(by="SUMA", ascending=False), hide_index=True, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
 def team_view():
@@ -608,14 +725,20 @@ def team_view():
                 """, unsafe_allow_html=True)
                 if st.button("ODŚWIEŻ DANE SIECIOWE", use_container_width=True): st.rerun()
         else:
-            st.markdown("""
-                <div class='panel' style='text-align: center; border-color: #06b6d4;'>
-                    <h2 style='color: #f8fafc;'>SYMULACJA ZAKOŃCZONA</h2>
-                    <p style='color: #94a3b8;'>Raport post-mortem został wygenerowany. Sprawdź tablicę wyników końcowych.</p>
+            st.markdown("<div class='panel' style='text-align: center; border-color: var(--accent-cyan);'>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: var(--text-primary); margin-top:0;'>SYMULACJA ZAKOŃCZONA</h2>", unsafe_allow_html=True)
+            
+            p, a, f, c = calculate_team_metrics(team_name)
+            verdict_text, _ = get_verdict(p, a, f, c)
+            
+            st.markdown(f"""
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; margin: 20px 0; text-align: left;">
+                    <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 10px;">RAPORT KOŃCOWY: {team_name.upper()}</div>
+                    <div style="font-size: 1.1rem; line-height: 1.6; color: var(--text-primary);">{verdict_text}</div>
                 </div>
             """, unsafe_allow_html=True)
             
-            # Leaderboard logic
+            st.markdown("<div class='panel-label'>RANKING OPERACYJNY</div>", unsafe_allow_html=True)
             lb = []
             for t in state["teams"]:
                 mp, ma, mf, mc = calculate_team_metrics(t)
@@ -625,6 +748,7 @@ def team_view():
             df = pd.DataFrame(lb).sort_values(by="SCORE", ascending=False).reset_index(drop=True)
             df.index += 1
             st.dataframe(df, use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
     with right:
         st.markdown("<div class='panel'>", unsafe_allow_html=True)
