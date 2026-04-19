@@ -5,7 +5,7 @@ import time
 
 # --- CONFIGURATION ---
 st.set_page_config(
-    page_title="HOSPITAL OS // COMMAND CENTER",
+    page_title="CyberGra Decyzyjna - Atak na Szpital // COMMAND CENTER",
     layout="wide",
     page_icon="🏥",
     initial_sidebar_state="collapsed"
